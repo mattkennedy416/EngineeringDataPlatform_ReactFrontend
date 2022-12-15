@@ -17,8 +17,13 @@ import { References } from '@app/components/common/References/References';
 import { useResponsive } from '@app/hooks/useResponsive';
 import * as S from './DashboardPage.styles';
 
+import {EditorState, EditorView, basicSetup} from "@codemirror/basic-setup"
 import CodeMirror from '@uiw/react-codemirror';
 import {python} from '@codemirror/lang-python';
+import {sql} from '@codemirror/lang-sql';
+import {markdown} from '@codemirror/lang-markdown';
+import { oneDarkTheme } from "@codemirror/theme-one-dark";
+
 
 const MedicalDashboardPage: React.FC = () => {
   const { isTablet, isDesktop } = useResponsive();
@@ -32,16 +37,42 @@ const MedicalDashboardPage: React.FC = () => {
 
 
   const desktopLayout = (
+
+    <>
     <Row>
       hello world!
 
       <CodeMirror
       value="console.log('hello world!');"
       height="200px"
-      extensions={[python()]}
+      extensions={[python(), oneDarkTheme]}
       onChange={onChange}
     />
+
     </Row>
+
+    <Row>
+
+    <CodeMirror
+      value="SQL Editor"
+      height="200px"
+      extensions={[sql({}), oneDarkTheme]}
+      onChange={onChange}
+    />
+
+    </Row>
+
+    <Row>
+
+<CodeMirror
+  value="Markdown Editor"
+  height="200px"
+  extensions={[markdown({}), oneDarkTheme]}
+  onChange={onChange}
+/>
+
+</Row>
+    </>
 
 
   //   <Row>

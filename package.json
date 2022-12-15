@@ -12,7 +12,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/lang-markdown": "^6.0.5",
     "@codemirror/lang-python": "^6.1.0",
+    "@codemirror/lang-sql": "^6.3.3",
+    "@codemirror/theme-one-dark": "^6.1.0",
     "@craco/craco": "^6.1.2",
     "@reduxjs/toolkit": "^1.7.1",
     "@uiw/react-codemirror": "^4.19.3",
