@@ -24,6 +24,8 @@ import {sql} from '@codemirror/lang-sql';
 import {markdown} from '@codemirror/lang-markdown';
 import { oneDarkTheme } from "@codemirror/theme-one-dark";
 
+import BaseTable, { Column } from 'react-base-table'
+import 'react-base-table/styles.css'
 
 const MedicalDashboardPage: React.FC = () => {
   const { isTablet, isDesktop } = useResponsive();
@@ -36,40 +38,15 @@ const MedicalDashboardPage: React.FC = () => {
   }, []);
 
 
+
+
   const desktopLayout = (
 
     <>
     <Row>
       hello world!
 
-      <CodeMirror
-      value="console.log('hello world!');"
-      height="200px"
-      extensions={[python(), oneDarkTheme]}
-      onChange={onChange}
-    />
 
-    </Row>
-
-    <Row>
-
-    <CodeMirror
-      value="SQL Editor"
-      height="200px"
-      extensions={[sql({}), oneDarkTheme]}
-      onChange={onChange}
-    />
-
-    </Row>
-
-    <Row>
-
-<CodeMirror
-  value="Markdown Editor"
-  height="200px"
-  extensions={[markdown({}), oneDarkTheme]}
-  onChange={onChange}
-/>
 
 </Row>
     </>
@@ -133,9 +110,52 @@ const MedicalDashboardPage: React.FC = () => {
 
 
   const mobileAndTabletLayout = (
+    <>
     <Row>
       hello from mobile!
+
+      <CodeMirror
+      value="console.log('hello world!');"
+      height="200px"
+      extensions={[python(), oneDarkTheme]}
+      onChange={onChange}
+    />
+
+
+<BaseTable data={[{"id": 0, "col0": "c0", "col1": "c1"}, {"id": 1, "col0": "row1", "col1": "row1"}]} width={600} height={400}>
+  <Column key="col0" dataKey="col0" width={100} />
+  <Column key="col1" dataKey="col1" width={100} />
+  
+</BaseTable>
+
+
+    
+
+
     </Row>
+
+    <Row>
+
+    <CodeMirror
+      value="SQL Editor"
+      height="200px"
+      extensions={[sql({}), oneDarkTheme]}
+      onChange={onChange}
+    />
+
+    </Row>
+
+    <Row>
+
+<CodeMirror
+  value="Markdown Editor"
+  height="200px"
+  extensions={[markdown({}), oneDarkTheme]}
+  onChange={onChange}
+/>
+    </Row>
+    </>
+
   //   <Row gutter={[20, 20]}>
   //     <StatisticsCards />
 
