@@ -7,20 +7,20 @@ import 'react-base-table/styles.css'
 import {Dropdown, MenuProps, Space} from 'antd';
 import { DownOutlined } from "@ant-design/icons";
 import { Button } from 'antd';
+import { Select } from 'antd';
 
 export const NotebookTable: React.FC = (props) => {
     
     // propTypes: {
     //     subcomponentTabClose: React.PropTypes.func
     // }
+
+    function handleChange(value: string) {
+        console.log(value);
+    }
     
 
-    const items: MenuProps['items'] = [
-        {
-            key: '0',
-            label: 'hello'
-        }
-    ]
+
 
     function hidePanel() {
         console.log("hiding table panel!");
@@ -30,14 +30,30 @@ export const NotebookTable: React.FC = (props) => {
 
     const notebookTable = (
         <>
-        <Dropdown menu={{ items }}>
-        <a onClick={(e) => e.preventDefault()}>
-        <Space>
-            Select Variable
-            <DownOutlined />
-        </Space>
-        </a>
-        </Dropdown>
+
+        <Select
+            defaultValue="lucy"
+            style={{ width: 120 }}
+            onChange={handleChange}
+            options={[
+                {
+                value: 'jack',
+                label: 'Jack',
+                },
+                {
+                value: 'lucy',
+                label: 'Lucy',
+                },
+                {
+                value: 'disabled',
+                disabled: true,
+                label: 'Disabled',
+                },
+                {
+                value: 'Yiminghe',
+                label: 'yiminghe',
+                },
+            ]} />
 
 
         <Button type="primary" onClick={hidePanel}>Hide</Button>
