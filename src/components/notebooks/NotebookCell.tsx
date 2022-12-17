@@ -136,13 +136,9 @@ class NotebookCell extends Component {
 
 </Row>
 <Row>
-            <Button type="primary" onClick={() => this.subcomponentTabSelected("plot")}>Plot</Button>
-
-
-
+            {/* <Button type="primary" onClick={() => this.subcomponentTabSelected("plot")}>Plot</Button>
             <Button type="primary" onClick={() => this.subcomponentTabSelected("table")}>Table</Button>
-
-            <Button type="primary" onClick={() => this.subcomponentTabSelected("expression")}>Expression</Button>
+            <Button type="primary" onClick={() => this.subcomponentTabSelected("expression")}>Expression</Button> */}
             
 </Row>
 

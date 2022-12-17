@@ -71,9 +71,17 @@ const NotebookCellMenu: React.FC = (props) => {
     props.menuItemSelected(item.key);
 }
 
-const branchChildren = [
+
+
+const gitCompareChildren = [
     {label: "Compare Last Commit", key: "compareCommit", onClick: itemClicked} as MenuItem,
     {label: "Compare Branch", key: "compareBranch", onClick: itemClicked} as MenuItem,
+]
+
+const gitChildren = [
+    {label: "Commit", key: "gitCommit", onClick: itemClicked} as MenuItem,
+    {label: "Sync", key: "gitSync", onClick: itemClicked} as MenuItem,
+    {label: "Compare", key: "cellTypePython", onClick: itemClicked, children: gitCompareChildren} as MenuItem,
 ]
 
 const cellTypeChildren = [
@@ -82,9 +90,16 @@ const cellTypeChildren = [
     {label: "Markdown", key: "cellTypeMarkdown", onClick: itemClicked} as MenuItem
 ]
 
+const moveCellChildren = [
+    {label: "To Top", key: "cellMoveTop", onClick: itemClicked} as MenuItem,
+    {label: "Up One", key: "cellMoveUp", onClick: itemClicked} as MenuItem,
+    {label: "Down One", key: "cellMoveDown", onClick: itemClicked} as MenuItem,
+    {label: "To Bottom", key: "cellMoveBottom", onClick: itemClicked} as MenuItem,
+]
+
 const optionsChildren = [
     {label: "Change Cell Type", key: "cellType", onClick: itemClicked, children: cellTypeChildren} as MenuItem,
-    {label: "Clear Cell", key: "clearCell", onClick: itemClicked} as MenuItem,
+    {label: "Move Cell", key: "clearCell", onClick: itemClicked, children: moveCellChildren} as MenuItem,
     {label: "Delete Cell", key: "deleteCell", onClick: itemClicked} as MenuItem,
     {label: "Insert Cell", key: "insertCell", onClick: itemClicked} as MenuItem
 ]
@@ -95,7 +110,7 @@ const items2 = [
     {label: "Plot", key: "plot", onClick: itemClicked, icon: <LineChartOutlined/>} as MenuItem,
     {label: "Table", key: "table", onClick: itemClicked, icon: <TableOutlined/>} as MenuItem,
     {label: "Expression", key: "expression", onClick: itemClicked, icon: <RightOutlined/>} as MenuItem,
-    {label: "Branches", key: "branches", onClick: itemClicked, icon: <BranchesOutlined/>, children: branchChildren} as MenuItem,
+    {label: "Git", key: "git", onClick: itemClicked, icon: <BranchesOutlined/>, children: gitChildren} as MenuItem,
     {label: "Options", key: "options", onClick: itemClicked, icon: <MoreOutlined/>, children: optionsChildren} as MenuItem
 ]
 
