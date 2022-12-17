@@ -20,28 +20,55 @@ import { highlightSpecialChars } from "@codemirror/view";
 
 
 
+
+
 class NotebookCell extends Component {
+
+
 
 
     constructor(props) {
         super(props);
         this.state = {showPlot: false,
                         showTable: false,
-                        showConsole: false}
+                        showConsole: false,
+                        cellEditorHeight: "400px"}
     }
 
+    
 
-    onChange(newContent) {
+    
+    // React.useEffect(() => {
+    //     const current = codeMirrorRef.current.editor.display.wrapper.style.height = "1000px";
+    // })
+
+
+
+
+
+
+    onChange = (newContent: string) => {
         console.log(newContent)
+
+        const numLines = newContent.split(/\r?\n/);
+        console.log(numLines.length);
+
+        const newNumLines = Math.max(numLines.length, 8);
+        const newHeight = (23*newNumLines).toString() + "px";
+
+        this.setState({cellEditorHeight: newHeight});
+
+        // const codeMirrorRef = React.useRef();
+        // const current = codeMirrorRef.current.editor.display.wrapper.style.height = "1000px";
     }
     
 
-    subcomponentTabSelected = (selectedTab) => {
+    subcomponentTabSelected = (selectedTab: string) => {
 
         // close all tabs and open a new one, if a new tab has been selected
         // if the selected tab is already open, close it instead
 
-        let newStates = {showPlot: false,
+        const newStates = {showPlot: false,
                         showTable: false,
                         showConsole: false}
         if (selectedTab == "plot" && !this.state.showPlot)
@@ -80,7 +107,7 @@ class NotebookCell extends Component {
         <Row>      
         <CodeMirror
             value="print('hello world!');"
-            height="200px"
+            height={this.state.cellEditorHeight}
             width="600px"
             extensions={[python(), oneDarkTheme]}
             onChange={this.onChange}
