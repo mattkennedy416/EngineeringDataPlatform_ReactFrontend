@@ -119,7 +119,10 @@ class NotebookCell extends Component {
 
 
         <Row>      
-        <Col span={24}>
+        <div style={{  
+                        display: "grid",  
+                        gridTemplateColumns: "1fr 1fr"  
+                    }}>
         <CodeMirror
             value="print('hello world!');"
             height={this.state.cellEditorHeight}
@@ -127,11 +130,9 @@ class NotebookCell extends Component {
             extensions={[python(), oneDarkTheme]}
             onChange={this.onChange}
             />
-          </Col>
-
-            <Col>
+            
             <NotebookCellMenu menuItemSelected={this.menuItemSelected}/>
-            </Col>    
+            </div>
 
 </Row>
 <Row>
