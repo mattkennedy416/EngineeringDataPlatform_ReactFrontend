@@ -24,6 +24,8 @@ import {sql} from '@codemirror/lang-sql';
 import {markdown} from '@codemirror/lang-markdown';
 import { oneDarkTheme } from "@codemirror/theme-one-dark";
 
+import NotebookCell from '@app/components/notebooks/NotebookCell';
+
 import BaseTable, { Column } from 'react-base-table'
 import 'react-base-table/styles.css'
 
@@ -113,6 +115,11 @@ const MedicalDashboardPage: React.FC = () => {
 
   const mobileAndTabletLayout = (
     <>
+
+    <Row>
+      <NotebookCell />
+    </Row>
+
     <Row>
       hello from mobile!
 
