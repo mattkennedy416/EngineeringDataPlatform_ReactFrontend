@@ -26,6 +26,7 @@ import { oneDarkTheme } from "@codemirror/theme-one-dark";
 
 import NotebookCell from '@app/components/notebooks/NotebookCell';
 import NotebookEnvTree from '@app/components/notebooks/NotebookEnvTree';
+import NotebookSources from '@app/components/notebooks/NotebookSources';
 
 import BaseTable, { Column } from 'react-base-table'
 import 'react-base-table/styles.css'
@@ -62,8 +63,11 @@ const MedicalDashboardPage: React.FC = () => {
 
       <S.RightSideCol xl={8} xxl={7}>
 
-          <p>right column</p>
+          <p>Environment Variables</p>
           <NotebookEnvTree></NotebookEnvTree>
+
+          <p>Sources and Connections</p>
+          <NotebookSources/>
 
         
         <S.Space />

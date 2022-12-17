@@ -115,12 +115,11 @@ class NotebookCell extends Component {
         
         <>
 
-        <NotebookCellMenu menuItemSelected={this.menuItemSelected}/>
-
-        <Button type="primary" onClick={() => this.runCell()}>Run</Button>
+        
 
 
         <Row>      
+        <Col span={24}>
         <CodeMirror
             value="print('hello world!');"
             height={this.state.cellEditorHeight}
@@ -128,8 +127,11 @@ class NotebookCell extends Component {
             extensions={[python(), oneDarkTheme]}
             onChange={this.onChange}
             />
+          </Col>
 
-            
+            <Col>
+            <NotebookCellMenu menuItemSelected={this.menuItemSelected}/>
+            </Col>    
 
 </Row>
 <Row>

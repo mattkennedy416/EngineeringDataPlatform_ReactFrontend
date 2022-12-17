@@ -71,6 +71,10 @@ const NotebookCellMenu: React.FC = (props) => {
     props.menuItemSelected(item.key);
 }
 
+const branchChildren = [
+    {label: "Compare Last Commit", key: "compareCommit", onClick: itemClicked} as MenuItem,
+    {label: "Compare Branch", key: "compareBranch", onClick: itemClicked} as MenuItem,
+]
 
 const cellTypeChildren = [
     {label: "Python", key: "cellTypePython", onClick: itemClicked} as MenuItem,
@@ -91,7 +95,7 @@ const items2 = [
     {label: "Plot", key: "plot", onClick: itemClicked, icon: <LineChartOutlined/>} as MenuItem,
     {label: "Table", key: "table", onClick: itemClicked, icon: <TableOutlined/>} as MenuItem,
     {label: "Expression", key: "expression", onClick: itemClicked, icon: <RightOutlined/>} as MenuItem,
-    {label: "Branches", key: "branches", onClick: itemClicked, icon: <BranchesOutlined/>} as MenuItem,
+    {label: "Branches", key: "branches", onClick: itemClicked, icon: <BranchesOutlined/>, children: branchChildren} as MenuItem,
     {label: "Options", key: "options", onClick: itemClicked, icon: <MoreOutlined/>, children: optionsChildren} as MenuItem
 ]
 
