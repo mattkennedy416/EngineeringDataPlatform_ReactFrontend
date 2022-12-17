@@ -18,6 +18,7 @@ import { NotebookPlot } from "./NotebookPlot";
 import { isConstructorDeclaration } from "typescript";
 import { highlightSpecialChars } from "@codemirror/view";
 
+import NotebookCellMenu from "./NotebookCellMenu";
 
 
 
@@ -90,6 +91,10 @@ class NotebookCell extends Component {
             showConsole: false});
     }
 
+    runCell = () => {
+        console.log("execute!");
+    }
+
 
 
 
@@ -104,6 +109,11 @@ class NotebookCell extends Component {
         
         <>
 
+        <NotebookCellMenu />
+
+        <Button type="primary" onClick={() => this.runCell()}>Run</Button>
+
+
         <Row>      
         <CodeMirror
             value="print('hello world!');"
@@ -113,6 +123,8 @@ class NotebookCell extends Component {
             onChange={this.onChange}
             />
 
+            
+
 </Row>
 <Row>
             <Button type="primary" onClick={() => this.subcomponentTabSelected("plot")}>Plot</Button>
@@ -121,7 +133,7 @@ class NotebookCell extends Component {
 
             <Button type="primary" onClick={() => this.subcomponentTabSelected("table")}>Table</Button>
 
-            <Button type="primary" onClick={() => this.subcomponentTabSelected("console")}>Evaluate</Button>
+            <Button type="primary" onClick={() => this.subcomponentTabSelected("console")}>Expression</Button>
             
 </Row>
 
