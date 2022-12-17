@@ -48,11 +48,24 @@ const MedicalDashboardPage: React.FC = () => {
 
     <>
     <Row>
-      hello world!
+
+    
+<S.LeftSideCol xl={16} xxl={17} id="desktop-content">
+        <Row gutter={[60, 60]}>
+          <Col span={24}>
+          <NotebookCell />
+          </Col>
+          </Row>
+          </S.LeftSideCol>
 
 
+      <S.RightSideCol xl={8} xxl={7}>
 
-</Row>
+          <p>right column</p>
+        
+        <S.Space />
+      </S.RightSideCol>
+      </Row>
     </>
 
 
@@ -115,10 +128,25 @@ const MedicalDashboardPage: React.FC = () => {
 
   const mobileAndTabletLayout = (
     <>
+<Row>
 
-    <Row>
-      <NotebookCell />
-    </Row>
+
+<S.LeftSideCol xl={16} xxl={17} id="desktop-content">
+        <Row gutter={[60, 60]}>
+          <Col span={24}>
+          <NotebookCell />
+          </Col>
+          </Row>
+          </S.LeftSideCol>
+
+
+      <S.RightSideCol xl={8} xxl={7}>
+
+          <p>right column</p>
+        
+        <S.Space />
+      </S.RightSideCol>
+      </Row>
 
     <Row>
       hello from mobile!
@@ -231,6 +259,7 @@ const MedicalDashboardPage: React.FC = () => {
     <>
       <PageTitle>{t('common.medical-dashboard')}</PageTitle>
       {isDesktop ? desktopLayout : mobileAndTabletLayout}
+      
     </>
 
       
