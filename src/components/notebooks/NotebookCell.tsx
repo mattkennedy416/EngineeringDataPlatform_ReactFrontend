@@ -76,7 +76,7 @@ class NotebookCell extends Component {
             newStates.showPlot = true;
         else if (selectedTab == "table" && !this.state.showTable)
             newStates.showTable = true;
-        else if (selectedTab == "console" && !this.state.showConsole)
+        else if (selectedTab == "expression" && !this.state.showConsole)
             newStates.showConsole = true;
 
         this.setState(newStates);
@@ -89,6 +89,12 @@ class NotebookCell extends Component {
         this.setState({showPlot: false,
             showTable: false,
             showConsole: false});
+    }
+
+    menuItemSelected = (key: string) => {
+        console.log(key);
+        if (key === "plot" || key === "table" || key === "expression")
+            this.subcomponentTabSelected(key);
     }
 
     runCell = () => {
@@ -109,7 +115,7 @@ class NotebookCell extends Component {
         
         <>
 
-        <NotebookCellMenu />
+        <NotebookCellMenu menuItemSelected={this.menuItemSelected}/>
 
         <Button type="primary" onClick={() => this.runCell()}>Run</Button>
 
@@ -133,7 +139,7 @@ class NotebookCell extends Component {
 
             <Button type="primary" onClick={() => this.subcomponentTabSelected("table")}>Table</Button>
 
-            <Button type="primary" onClick={() => this.subcomponentTabSelected("console")}>Expression</Button>
+            <Button type="primary" onClick={() => this.subcomponentTabSelected("expression")}>Expression</Button>
             
 </Row>
 
