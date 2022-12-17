@@ -12,7 +12,11 @@ import { Col, Row } from 'antd';
 import Button from "antd/es/button";
 
 import { NotebookTable } from "./NotebookTable";
+import {NotebookConsole} from "./NotebookConsole";
+import { NotebookPlot } from "./NotebookPlot";
+
 import { isConstructorDeclaration } from "typescript";
+import { highlightSpecialChars } from "@codemirror/view";
 
 
 
@@ -27,20 +31,29 @@ class NotebookCell extends Component {
     }
 
 
-    onChange(e) {
-        console.log(e)
+    onChange(newContent) {
+        console.log(newContent)
     }
     
 
-    buttonSelectPlotTab = () => {
-        this.setState({showPlot: true,
+    subcomponentTabSelected = (selectedTab) => {
+
+        console.log(selectedTab)
+
+        let newStates = {showPlot: false,
                         showTable: false,
-                        showConsole: false})
+                        showConsole: false}
+        if (selectedTab == "plot" && !this.state.showPlot)
+            newStates.showPlot = true;
+        else if (selectedTab == "table" && !this.state.showTable)
+            newStates.showTable = true;
+        else if (selectedTab == "console" && !this.state.showConsole)
+            newStates.showConsole = true;
+
+        this.setState(newStates);
+
     } 
 
-    dropdownSelectPlot() {
-        alert('selected item to plot!');
-    }
 
 
 
@@ -66,18 +79,20 @@ class NotebookCell extends Component {
 
 </Row>
 <Row>
-            <Button type="primary" onClick={this.buttonSelectPlotTab}>Plot</Button>
+            <Button type="primary" onClick={() => this.subcomponentTabSelected("plot")}>Plot</Button>
 
 
 
-            <Button type="primary" onClick={this.buttonSelectPlotTab}>Table</Button>
+            <Button type="primary" onClick={() => this.subcomponentTabSelected("table")}>Table</Button>
 
-            <Button type="primary" onClick={this.buttonSelectPlotTab}>Console</Button>
+            <Button type="primary" onClick={() => this.subcomponentTabSelected("console")}>Console</Button>
             
 </Row>
 
 <Row>
-        { this.state.showPlot && <NotebookTable></NotebookTable> }
+        { this.state.showPlot && <NotebookPlot></NotebookPlot> }
+        { this.state.showTable && <NotebookTable></NotebookTable> }
+        { this.state.showConsole && <NotebookConsole></NotebookConsole> }
 </Row>
 </>
 

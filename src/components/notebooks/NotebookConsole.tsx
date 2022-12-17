@@ -6,13 +6,13 @@ import {Dropdown, MenuProps, Space} from 'antd';
 import { DownOutlined } from "@ant-design/icons";
 import { Button } from 'antd';
 
-export const NotebookPlot: React.FC = () => {
+export const NotebookConsole: React.FC = () => {
 
 
 
     return(
         <>
-        I am a plot!
+        I am a console!
         </>
     )
 
