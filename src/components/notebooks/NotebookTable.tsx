@@ -33,7 +33,7 @@ export const NotebookTable: React.FC = (props) => {
         <Dropdown menu={{ items }}>
         <a onClick={(e) => e.preventDefault()}>
         <Space>
-            Select Plot
+            Select Variable
             <DownOutlined />
         </Space>
         </a>
@@ -41,7 +41,15 @@ export const NotebookTable: React.FC = (props) => {
 
 
         <Button type="primary" onClick={hidePanel}>Hide</Button>
+
+        <BaseTable data={[{"id": 0, "col0": "c0", "col1": "c1"}, {"id": 1, "col0": "row1", "col1": "row1"}]} width={600} height={400}>
+        <Column key="col0" dataKey="col0" width={100} />
+        <Column key="col1" dataKey="col1" width={100} />
+        
+        </BaseTable>
         </>
+
+        
     )
 
 
