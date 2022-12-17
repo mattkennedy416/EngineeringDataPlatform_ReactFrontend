@@ -38,7 +38,8 @@ class NotebookCell extends Component {
 
     subcomponentTabSelected = (selectedTab) => {
 
-        console.log(selectedTab)
+        // close all tabs and open a new one, if a new tab has been selected
+        // if the selected tab is already open, close it instead
 
         let newStates = {showPlot: false,
                         showTable: false,
@@ -53,6 +54,14 @@ class NotebookCell extends Component {
         this.setState(newStates);
 
     } 
+
+    subcomponentTabClose = () => {
+        // close all subcomponent tabs
+
+        this.setState({showPlot: false,
+            showTable: false,
+            showConsole: false});
+    }
 
 
 
@@ -91,7 +100,7 @@ class NotebookCell extends Component {
 
 <Row>
         { this.state.showPlot && <NotebookPlot></NotebookPlot> }
-        { this.state.showTable && <NotebookTable></NotebookTable> }
+        { this.state.showTable && <NotebookTable subcomponentTabClose={this.subcomponentTabClose}></NotebookTable> }
         { this.state.showConsole && <NotebookConsole></NotebookConsole> }
 </Row>
 </>
