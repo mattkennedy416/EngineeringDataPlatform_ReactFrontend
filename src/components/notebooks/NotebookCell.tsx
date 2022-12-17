@@ -12,7 +12,7 @@ import { Col, Row } from 'antd';
 import Button from "antd/es/button";
 
 import { NotebookTable } from "./NotebookTable";
-import {NotebookConsole} from "./NotebookConsole";
+import {NotebookEvalConsole} from "./NotebookEvalConsole";
 import { NotebookPlot } from "./NotebookPlot";
 
 import { isConstructorDeclaration } from "typescript";
@@ -94,14 +94,14 @@ class NotebookCell extends Component {
 
             <Button type="primary" onClick={() => this.subcomponentTabSelected("table")}>Table</Button>
 
-            <Button type="primary" onClick={() => this.subcomponentTabSelected("console")}>Console</Button>
+            <Button type="primary" onClick={() => this.subcomponentTabSelected("console")}>Evaluate</Button>
             
 </Row>
 
 <Row>
         { this.state.showPlot && <NotebookPlot></NotebookPlot> }
         { this.state.showTable && <NotebookTable subcomponentTabClose={this.subcomponentTabClose}></NotebookTable> }
-        { this.state.showConsole && <NotebookConsole></NotebookConsole> }
+        { this.state.showConsole && <NotebookEvalConsole subcomponentTabClose={this.subcomponentTabClose}></NotebookEvalConsole> }
 </Row>
 </>
 
