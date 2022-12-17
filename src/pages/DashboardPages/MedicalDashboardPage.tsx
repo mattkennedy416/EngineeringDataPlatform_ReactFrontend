@@ -27,6 +27,8 @@ import { oneDarkTheme } from "@codemirror/theme-one-dark";
 import BaseTable, { Column } from 'react-base-table'
 import 'react-base-table/styles.css'
 
+import Plot from 'react-plotly.js'
+
 const MedicalDashboardPage: React.FC = () => {
   const { isTablet, isDesktop } = useResponsive();
 
@@ -129,6 +131,19 @@ const MedicalDashboardPage: React.FC = () => {
 </BaseTable>
 
 
+<Plot
+        data={[
+          {
+            x: [1, 2, 3],
+            y: [2, 6, 3],
+            type: 'scatter',
+            mode: 'lines+markers',
+            marker: {color: 'red'},
+          },
+          {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
+        ]}
+        layout={ {width: 320, height: 240, title: 'A Fancy Plot'} }
+      />
     
 
 
