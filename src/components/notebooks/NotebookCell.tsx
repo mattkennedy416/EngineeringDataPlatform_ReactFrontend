@@ -33,7 +33,8 @@ class NotebookCell extends Component {
         this.state = {showPlot: false,
                         showTable: false,
                         showConsole: false,
-                        cellEditorHeight: "400px"}
+                        cellEditorHeight: "400px",
+                        editorValue: "print('hello world!)"}
     }
 
     
@@ -57,7 +58,9 @@ class NotebookCell extends Component {
         const newNumLines = Math.max(numLines.length, 8);
         const newHeight = (23*newNumLines).toString() + "px";
 
-        this.setState({cellEditorHeight: newHeight});
+        this.setState({cellEditorHeight: newHeight,
+                        editorValue: newContent});
+        
 
         // const codeMirrorRef = React.useRef();
         // const current = codeMirrorRef.current.editor.display.wrapper.style.height = "1000px";
@@ -95,10 +98,13 @@ class NotebookCell extends Component {
         console.log(key);
         if (key === "plot" || key === "table" || key === "expression")
             this.subcomponentTabSelected(key);
+        else if (key === "run") {
+            this.runCell();
+        }
     }
 
     runCell = () => {
-        console.log("execute!");
+        console.log("running! " + this.state.editorValue);
     }
 
 
@@ -124,7 +130,7 @@ class NotebookCell extends Component {
                         gridTemplateColumns: "1fr 1fr"  
                     }}>
         <CodeMirror
-            value="print('hello world!');"
+            value={this.state.editorValue}
             height={this.state.cellEditorHeight}
             width="600px"
             extensions={[python(), oneDarkTheme]}
