@@ -32,6 +32,13 @@ export const NotebookPlot: React.FC = () => {
             marker: {color: 'red'}}
   }
 
+  function generateLineData(xVar, yVar) {
+    return {x: allLoadedData[xVar],
+            y: allLoadedData[yVar],
+            type: 'line',
+          }
+  }
+
   function generateBarData(xVar, yVar) {
     return {x: allLoadedData[xVar],
             y: allLoadedData[yVar],
@@ -58,6 +65,12 @@ export const NotebookPlot: React.FC = () => {
     }
     else if (value == "bar") {
       setCurrentPlots([generateBarData('x','y')]);
+    }
+    else if (value == "line") {
+      setCurrentPlots([generateLineData('x','y')]);
+    }
+    else {
+      setCurrentPlots([]); // null case
     }
 
 }
