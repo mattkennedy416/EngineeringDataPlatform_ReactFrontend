@@ -18,9 +18,8 @@ export const NotebookPlot: React.FC = () => {
   const [inlineDiagramHeight, setInlineDiagramHeight] = useState(240);
   const [modalDiagramWidth, setModalDiagramWidth] = useState(1000);
   const [modalDiagramHeight, setModalDiagramHeight] = useState(800);
-
-  console.log(inlineDiagramWidth.toString() + " -- " + inlineDiagramHeight.toString());
-  console.log(modalDiagramWidth.toString() + " -- " + modalDiagramHeight.toString());
+  const [plotUpdated, setPlotUpdated] = useState(false); // can we use this setState to force a rerender?
+  const [currentPlots, setCurrentPlots] = useState([]);
 
   let allLoadedData = {'x': [1,2,3],
                       'y': [2,6,3]};
@@ -39,8 +38,9 @@ export const NotebookPlot: React.FC = () => {
             type: 'bar'}
   }
 
-  let currentPlots = [generateScatterData('x','y'),
-                      generateBarData('x','y')]
+  // let currentPlots = [generateScatterData('x','y'),
+  //                     generateBarData('x','y')]
+    //let currentPlots = [];
 
   // {
   //   x: [1, 2, 3],
@@ -51,9 +51,20 @@ export const NotebookPlot: React.FC = () => {
   // },
 
 
-  function handleSelectVariable(value: string) {
-    console.log(value);
+  function plotTypeChanged(value: string) {
+
+    if (value == "scatter") {
+      setCurrentPlots([generateScatterData('x','y')]);
+    }
+    else if (value == "bar") {
+      setCurrentPlots([generateBarData('x','y')]);
+    }
+
 }
+
+  function plottingVaraibleChanged(value: string) {
+      console.log(value);
+  }
 
   function openModal() {
     setShowingModal(true);
@@ -63,35 +74,23 @@ export const NotebookPlot: React.FC = () => {
     setShowingModal(false);
   }
 
-  const inlineLayout = (
-    <>
-
-    {/* do we also need to add tabs in here so we can have multiple images per cell?z */}
-
-            {/* <Plot
-        data={[
-          {
-            x: [1, 2, 3],
-            y: [2, 6, 3],
-            type: 'scatter',
-            mode: 'lines+markers',
-            marker: {color: 'red'},
-          },
-          {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
-        ]}
-        layout={ {width: {diagramWidth}, height: {diagramHeight}, title: 'A Fancy Plot'} }
-      /> */}
-
-        <Plot
+  function generateInLineLayout() {
+    
+    console.log(currentPlots);
+    const layout = (
+      <>
+      <Plot
             data={currentPlots}
             layout={ {width: 320, height: 240, title: 'A Fancy Plot'} }
           />
+
+          
 
 
         <Select
             defaultValue="select variable"
             style={{ width: 200 }}
-            onChange={handleSelectVariable}
+            onChange={plottingVaraibleChanged}
             options={[
                 {
                 value: 'select variable',
@@ -102,7 +101,58 @@ export const NotebookPlot: React.FC = () => {
         <Select
             defaultValue="plot type"
             style={{ width: 120 }}
-            onChange={handleSelectVariable}
+            onChange={plotTypeChanged}
+            options={[
+                {
+                value: 'plot type',
+                label: 'Plot Type',
+                },
+                {
+                  value: 'scatter',
+                  label: 'Scatter',
+                },
+                {
+                  value: 'line',
+                  label: 'Line',
+                },
+                {
+                  value: 'bar',
+                  label: 'Bar',
+                },
+            ]} />
+
+      <Button type="primary" onClick={openModal}>Expand</Button>
+    </>
+  )
+  return layout;
+  }
+
+  const inlineLayout = (
+    <>
+
+    {/* do we also need to add tabs in here so we can have multiple images per cell?z */}
+
+        <Plot
+            data={currentPlots}
+            layout={ {width: 320, height: 240, title: 'A Fancy Plot'} }
+          />
+
+
+        <Select
+            defaultValue="select variable"
+            style={{ width: 200 }}
+            onChange={plottingVaraibleChanged}
+            options={[
+                {
+                value: 'select variable',
+                label: 'Select Variable',
+                }
+            ]} />
+
+        <Select
+            defaultValue="plot type"
+            style={{ width: 120 }}
+            onChange={plotTypeChanged}
             options={[
                 {
                 value: 'plot type',
@@ -157,7 +207,7 @@ export const NotebookPlot: React.FC = () => {
 
 
         
-            {showingModal ? modalLayout : inlineLayout}
+            {showingModal ? modalLayout : generateInLineLayout()}
         
 
 
