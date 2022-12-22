@@ -24,7 +24,7 @@ import {sql} from '@codemirror/lang-sql';
 import {markdown} from '@codemirror/lang-markdown';
 import { oneDarkTheme } from "@codemirror/theme-one-dark";
 
-import Notebook from '@app/components/notebooks/Notebook';
+import {Notebook} from '@app/components/notebooks/Notebook';
 import NotebookCell from '@app/components/notebooks/NotebookCell';
 import NotebookEnvTree from '@app/components/notebooks/NotebookEnvTree';
 import NotebookSources from '@app/components/notebooks/NotebookSources';
@@ -144,7 +144,7 @@ const MedicalDashboardPage: React.FC = () => {
 <S.LeftSideCol xl={16} xxl={17} id="desktop-content">
         <Row gutter={[60, 60]}>
           <Col span={24}>
-          <Notebook />
+          <Notebook notebookPath="notebooks/testNotebook.edpnb" />
           </Col>
           </Row>
           </S.LeftSideCol>
