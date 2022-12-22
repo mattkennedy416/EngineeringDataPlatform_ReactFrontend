@@ -8,8 +8,9 @@ import { DownOutlined } from "@ant-design/icons";
 import { Button, Select, Modal } from 'antd';
 
 import Plot from 'react-plotly.js'
+import { format } from 'echarts';
 
-export const NotebookPlot: React.FC = () => {
+export const NotebookPlot: React.FC = (props) => {
 
 
   
@@ -87,6 +88,15 @@ export const NotebookPlot: React.FC = () => {
     setShowingModal(false);
   }
 
+  function formatAvailableTableVariables() {
+    let vars = props.getTablesInCell();
+    let options = [];
+    for (let i=0; i<vars.length; i++) {
+      options.push({value: vars[i], label: vars[i]});
+    }
+    return options
+  }
+
   function generateInLineLayout() {
     
     console.log(currentPlots);
@@ -104,12 +114,7 @@ export const NotebookPlot: React.FC = () => {
             defaultValue="select variable"
             style={{ width: 200 }}
             onChange={plottingVaraibleChanged}
-            options={[
-                {
-                value: 'select variable',
-                label: 'Select Variable',
-                }
-            ]} />
+            options={formatAvailableTableVariables()} />
 
         <Select
             defaultValue="plot type"

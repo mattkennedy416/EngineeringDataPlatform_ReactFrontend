@@ -34,6 +34,8 @@ export const NotebookCell: React.FC = (props) => {
     const [showConsole, setShowConsole] = useState(false);
     const [cellEditorHeight, setCellEditorHeight] = useState("400px");
     const [editorValue, setEditorValue] = useState(props.cellContent.cellContent);
+    const [outputValue, setOutputValue] = useState("");
+    const [tablesInCell, setTablesInCell] = useState([]);
 
     console.log(props);
     
@@ -89,6 +91,10 @@ export const NotebookCell: React.FC = (props) => {
 
     }
 
+    function getTablesInCell() {
+        return tablesInCell;
+    }
+
     function menuItemSelected(key: string) {
         console.log(key);
         if (key === "plot" || key === "table" || key === "expression")
@@ -125,6 +131,8 @@ export const NotebookCell: React.FC = (props) => {
         console.log(data);
         
         props.setEnvironment(data.environment);
+        setOutputValue(data.output);
+        setTablesInCell(data.tablesInCell);
     }
 
 
@@ -165,11 +173,12 @@ export const NotebookCell: React.FC = (props) => {
             <Button type="primary" onClick={() => this.subcomponentTabSelected("table")}>Table</Button>
             <Button type="primary" onClick={() => this.subcomponentTabSelected("expression")}>Expression</Button> */}
             
+            <p>{outputValue}</p>
 </Row>
 
 <Row>
-        { showPlot && <NotebookPlot></NotebookPlot> }
-        { showTable && <NotebookTable subcomponentTabClose={subcomponentTabClose}></NotebookTable> }
+        { showPlot && <NotebookPlot  getTablesInCell={getTablesInCell}></NotebookPlot> }
+        { showTable && <NotebookTable subcomponentTabClose={subcomponentTabClose} getTablesInCell={getTablesInCell}></NotebookTable> }
         { showConsole && <NotebookEvalConsole subcomponentTabClose={subcomponentTabClose}></NotebookEvalConsole> }
 </Row>
 </>
