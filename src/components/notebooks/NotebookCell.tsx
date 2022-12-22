@@ -124,7 +124,7 @@ export const NotebookCell: React.FC = (props) => {
 
         console.log(data);
         
-
+        props.setEnvironment(data.environment);
     }
 
 

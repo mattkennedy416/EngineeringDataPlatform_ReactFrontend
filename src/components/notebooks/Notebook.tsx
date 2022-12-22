@@ -23,6 +23,9 @@ export const Notebook: React.FC = (props) => {
     })
 
 
+    function setEnvironment(environmentDict) {
+        console.log(environmentDict);
+    }
 
 
     async function readNotebook() {
@@ -48,7 +51,7 @@ export const Notebook: React.FC = (props) => {
 
         const newCells = [];
         for (let i=0; i<data.cellContents.length; i++) {
-            newCells.push(<NotebookCell cellContent={data.cellContents[i]} notebookName={notebookName}/>);
+            newCells.push(<NotebookCell cellContent={data.cellContents[i]} notebookName={notebookName} setEnvironment={(e) => setEnvironment(e)}/>);
         }
         setCellComponents(newCells);
 
