@@ -15,6 +15,8 @@ export const Notebook: React.FC = (props) => {
     const [savedCellContents, setSavedCellContents] = useState('');
     const [cellComponents, setCellComponents] = useState([Component]);
 
+    
+
     async function readNotebook() {
         console.log(props);
 
@@ -36,9 +38,9 @@ export const Notebook: React.FC = (props) => {
 
         console.log(savedCellContents);
 
-        const newCells = []
-        for (let i=0; i<savedCellContents.length; i++) {
-            newCells.push(<NotebookCell cellContent={savedCellContents[i]}/>);
+        const newCells = [];
+        for (let i=0; i<data.cellContents.length; i++) {
+            newCells.push(<NotebookCell cellContent={data.cellContents[i]}/>);
         }
         setCellComponents(newCells);
 
