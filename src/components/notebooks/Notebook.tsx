@@ -22,6 +22,9 @@ export const Notebook: React.FC = (props) => {
             readNotebook();
     })
 
+
+
+
     async function readNotebook() {
         console.log(props);
 
@@ -45,7 +48,7 @@ export const Notebook: React.FC = (props) => {
 
         const newCells = [];
         for (let i=0; i<data.cellContents.length; i++) {
-            newCells.push(<NotebookCell cellContent={data.cellContents[i]}/>);
+            newCells.push(<NotebookCell cellContent={data.cellContents[i]} notebookName={notebookName}/>);
         }
         setCellComponents(newCells);
 
@@ -54,6 +57,7 @@ export const Notebook: React.FC = (props) => {
         setNotebookHasBeenLoaded(true);
 
     }
+
 
 
     

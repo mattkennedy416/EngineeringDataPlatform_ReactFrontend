@@ -27,15 +27,7 @@ import NotebookCellMenu from "./NotebookCellMenu";
 export const NotebookCell: React.FC = (props) => {
 
 
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {showPlot: false,
-    //                     showTable: false,
-    //                     showConsole: false,
-    //                     cellEditorHeight: "400px",
-    //                     editorValue: "print('hello world!)"}
-    // }
+    const backendAddress = "http://127.0.0.1:5000/";
 
     const [showPlot, setShowPlot] = useState(false);
     const [showTable, setShowTable] = useState(false);
@@ -46,14 +38,9 @@ export const NotebookCell: React.FC = (props) => {
     console.log(props);
     
     
-
-    
     // React.useEffect(() => {
     //     const current = codeMirrorRef.current.editor.display.wrapper.style.height = "1000px";
     // })
-
-
-
 
 
 
@@ -111,9 +98,35 @@ export const NotebookCell: React.FC = (props) => {
         }
     }
 
-    function runCell() {
+    async function runCell() {
         console.log("running! " + editorValue);
+
+        const currentCellContent = props.cellContent;
+        currentCellContent.cellContent = editorValue;
+
+        
+        const address = backendAddress + 'workspace/notebooks/execute'
+
+        const res = await fetch(address, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "notebookName": props.notebookName,
+                "cellContent": currentCellContent
+            })
+        });
+
+        if (!res.ok) {
+            throw new Error("cell execution failed");
+        }
+
+        const data = await res.json();
+
+        console.log(data);
+        
+
     }
+
 
 
 
