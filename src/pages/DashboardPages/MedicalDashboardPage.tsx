@@ -25,7 +25,7 @@ import {markdown} from '@codemirror/lang-markdown';
 import { oneDarkTheme } from "@codemirror/theme-one-dark";
 
 import {Notebook} from '@app/components/notebooks/Notebook';
-import NotebookCell from '@app/components/notebooks/NotebookCell';
+// import NotebookCell from '@app/components/notebooks/NotebookCell';
 import NotebookEnvTree from '@app/components/notebooks/NotebookEnvTree';
 import NotebookSources from '@app/components/notebooks/NotebookSources';
 import NotebookRightColumn from '@app/components/notebooks/NotebookRightColumn';
@@ -61,7 +61,7 @@ const MedicalDashboardPage: React.FC = () => {
 
             <NotebookFileMenu />
             
-          <NotebookCell />
+          {/* <NotebookCell /> */}
           </Col>
           </Row>
           </S.LeftSideCol>

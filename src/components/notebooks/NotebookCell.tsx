@@ -1,5 +1,5 @@
 
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 
 import {EditorState, EditorView, basicSetup} from "@codemirror/basic-setup"
 import CodeMirror from '@uiw/react-codemirror';
@@ -23,20 +23,28 @@ import NotebookCellMenu from "./NotebookCellMenu";
 
 
 
-class NotebookCell extends Component {
+// class NotebookCell extends Component {
+export const NotebookCell: React.FC = (props) => {
 
 
 
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {showPlot: false,
+    //                     showTable: false,
+    //                     showConsole: false,
+    //                     cellEditorHeight: "400px",
+    //                     editorValue: "print('hello world!)"}
+    // }
 
-    constructor(props) {
-        super(props);
-        this.state = {showPlot: false,
-                        showTable: false,
-                        showConsole: false,
-                        cellEditorHeight: "400px",
-                        editorValue: "print('hello world!)"}
-    }
+    const [showPlot, setShowPlot] = useState(false);
+    const [showTable, setShowTable] = useState(false);
+    const [showConsole, setShowConsole] = useState(false);
+    const [cellEditorHeight, setCellEditorHeight] = useState("400px");
+    const [editorValue, setEditorValue] = useState(props.cellContent.cellContent);
 
+    console.log(props);
+    
     
 
     
@@ -49,7 +57,7 @@ class NotebookCell extends Component {
 
 
 
-    onChange = (newContent: string) => {
+    function onChange(newContent: string)  {
         console.log(newContent)
 
         const numLines = newContent.split(/\r?\n/);
@@ -58,8 +66,11 @@ class NotebookCell extends Component {
         const newNumLines = Math.max(numLines.length, 8);
         const newHeight = (23*newNumLines).toString() + "px";
 
-        this.setState({cellEditorHeight: newHeight,
-                        editorValue: newContent});
+        // this.setState({cellEditorHeight: newHeight,
+        //                 editorValue: newContent});
+
+        setCellEditorHeight(newHeight);
+        setEditorValue(newContent);
         
 
         // const codeMirrorRef = React.useRef();
@@ -67,44 +78,41 @@ class NotebookCell extends Component {
     }
     
 
-    subcomponentTabSelected = (selectedTab: string) => {
+    function subcomponentTabSelected(selectedTab: string) {
 
         // close all tabs and open a new one, if a new tab has been selected
         // if the selected tab is already open, close it instead
 
-        const newStates = {showPlot: false,
-                        showTable: false,
-                        showConsole: false}
-        if (selectedTab == "plot" && !this.state.showPlot)
-            newStates.showPlot = true;
-        else if (selectedTab == "table" && !this.state.showTable)
-            newStates.showTable = true;
-        else if (selectedTab == "expression" && !this.state.showConsole)
-            newStates.showConsole = true;
+        subcomponentTabClose();
 
-        this.setState(newStates);
+        if (selectedTab == "plot" && !showPlot)
+            setShowPlot(true);
+        else if (selectedTab == "table" && !showTable)
+            setShowTable(true);
+        else if (selectedTab == "expression" && !showConsole)
+            setShowConsole(true);
 
     } 
 
-    subcomponentTabClose = () => {
+    function subcomponentTabClose() {
         // close all subcomponent tabs
+        setShowPlot(false);
+        setShowTable(false);
+        setShowConsole(false);
 
-        this.setState({showPlot: false,
-            showTable: false,
-            showConsole: false});
     }
 
-    menuItemSelected = (key: string) => {
+    function menuItemSelected(key: string) {
         console.log(key);
         if (key === "plot" || key === "table" || key === "expression")
-            this.subcomponentTabSelected(key);
+            subcomponentTabSelected(key);
         else if (key === "run") {
-            this.runCell();
+            runCell();
         }
     }
 
-    runCell = () => {
-        console.log("running! " + this.state.editorValue);
+    function runCell() {
+        console.log("running! " + editorValue);
     }
 
 
@@ -113,8 +121,6 @@ class NotebookCell extends Component {
     
     
     
-
-    render() {
 
     
     return (
@@ -130,14 +136,14 @@ class NotebookCell extends Component {
                         gridTemplateColumns: "1fr 1fr"  
                     }}>
         <CodeMirror
-            value={this.state.editorValue}
-            height={this.state.cellEditorHeight}
+            value={editorValue}
+            height={cellEditorHeight}
             width="600px"
             extensions={[python(), oneDarkTheme]}
-            onChange={this.onChange}
+            onChange={onChange}
             />
             
-            <NotebookCellMenu menuItemSelected={this.menuItemSelected}/>
+            <NotebookCellMenu menuItemSelected={menuItemSelected}/>
             </div>
 
 </Row>
@@ -149,9 +155,9 @@ class NotebookCell extends Component {
 </Row>
 
 <Row>
-        { this.state.showPlot && <NotebookPlot></NotebookPlot> }
-        { this.state.showTable && <NotebookTable subcomponentTabClose={this.subcomponentTabClose}></NotebookTable> }
-        { this.state.showConsole && <NotebookEvalConsole subcomponentTabClose={this.subcomponentTabClose}></NotebookEvalConsole> }
+        { showPlot && <NotebookPlot></NotebookPlot> }
+        { showTable && <NotebookTable subcomponentTabClose={subcomponentTabClose}></NotebookTable> }
+        { showConsole && <NotebookEvalConsole subcomponentTabClose={subcomponentTabClose}></NotebookEvalConsole> }
 </Row>
 </>
 
@@ -160,8 +166,8 @@ class NotebookCell extends Component {
       );
     
     }
-}
 
 
-export default NotebookCell;
+
+// export default NotebookCell;
 
