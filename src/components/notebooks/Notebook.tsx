@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, {Component, useState, useEffect} from "react";
 import ReactDOM from 'react-dom';
 
 import {NotebookCell} from "./NotebookCell";
@@ -14,8 +14,13 @@ export const Notebook: React.FC = (props) => {
     const [notebookPath, setNotebookPath] = useState('');
     const [savedCellContents, setSavedCellContents] = useState('');
     const [cellComponents, setCellComponents] = useState([Component]);
+    const [notebookHasBeenLoaded, setNotebookHasBeenLoaded] = useState(false);
 
-    
+    useEffect( () => {
+        // this useEffect() function will execute every time the component is initially or re-rendered
+        if (!notebookHasBeenLoaded)
+            readNotebook();
+    })
 
     async function readNotebook() {
         console.log(props);
@@ -46,13 +51,15 @@ export const Notebook: React.FC = (props) => {
 
         console.log(cellComponents.length);
 
+        setNotebookHasBeenLoaded(true);
+
     }
 
 
     
     return(
         <>
-        <Button type="primary" onClick={() => readNotebook()}> button </Button>
+        {/* <Button type="primary" onClick={() => readNotebook()}> button </Button> */}
         
         {/* <NotebookCell /> */}
 
