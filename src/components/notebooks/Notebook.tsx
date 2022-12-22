@@ -27,6 +27,16 @@ export const Notebook: React.FC = (props) => {
         console.log(environmentDict);
     }
 
+    function getNotebookMetaData() {
+        // lets generate a dictionary that we can pass around and get info from
+        // this should be mostly static things that subcomponents might need to make queries against the backend
+        const metadata = {notebookName: notebookName,
+                            notebookPath: notebookPath,
+                            backendAddress: backendAddress};
+        
+        return metadata;
+    }
+
 
     async function readNotebook() {
         console.log(props);
@@ -51,7 +61,7 @@ export const Notebook: React.FC = (props) => {
 
         const newCells = [];
         for (let i=0; i<data.cellContents.length; i++) {
-            newCells.push(<NotebookCell cellContent={data.cellContents[i]} notebookName={notebookName} setEnvironment={(e) => setEnvironment(e)}/>);
+            newCells.push(<NotebookCell cellContent={data.cellContents[i]} notebookMetaData={getNotebookMetaData()} setEnvironment={(e) => setEnvironment(e)}/>);
         }
         setCellComponents(newCells);
 

@@ -27,7 +27,7 @@ import NotebookCellMenu from "./NotebookCellMenu";
 export const NotebookCell: React.FC = (props) => {
 
 
-    const backendAddress = "http://127.0.0.1:5000/";
+    
 
     const [showPlot, setShowPlot] = useState(false);
     const [showTable, setShowTable] = useState(false);
@@ -111,13 +111,13 @@ export const NotebookCell: React.FC = (props) => {
         currentCellContent.cellContent = editorValue;
 
         
-        const address = backendAddress + 'workspace/notebooks/execute'
+        const address = props.notebookMetaData.backendAddress + 'workspace/notebooks/execute'
 
         const res = await fetch(address, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                "notebookName": props.notebookName,
+                "notebookName": props.notebookMetaData.notebookName,
                 "cellContent": currentCellContent
             })
         });
@@ -178,7 +178,7 @@ export const NotebookCell: React.FC = (props) => {
 
 <Row>
         { showPlot && <NotebookPlot  getTablesInCell={getTablesInCell}></NotebookPlot> }
-        { showTable && <NotebookTable subcomponentTabClose={subcomponentTabClose} getTablesInCell={getTablesInCell}></NotebookTable> }
+        { showTable && <NotebookTable notebookMetaData={props.notebookMetaData} subcomponentTabClose={subcomponentTabClose} getTablesInCell={getTablesInCell}></NotebookTable> }
         { showConsole && <NotebookEvalConsole subcomponentTabClose={subcomponentTabClose}></NotebookEvalConsole> }
 </Row>
 </>
